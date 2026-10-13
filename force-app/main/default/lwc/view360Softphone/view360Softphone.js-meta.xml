@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>View360 Softphone</masterLabel>
+    <description>View360 Softphone and Chat integration for Lightning Experience and Utility Bar.</description>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__UtilityBar</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig
+            targets="lightning__AppPage,lightning__HomePage,lightning__RecordPage,lightning__UtilityBar">
+            <property name="softphoneUrl" type="String" label="Softphone URL"
+                default="https://syscare.systech.ae/v1/auth/login"
+                description="HTTPS URL for the hosted View360 Softphone / Chat application" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

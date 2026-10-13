@@ -1,0 +1,76 @@
+:host {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.softphone-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background: #ffffff;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.softphone-header {
+    padding: 10px 16px;
+    background-color: #f3f3f3;
+    border-bottom: 1px solid #d8dde6;
+    font-weight: 600;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.softphone-header h2 {
+    margin: 0;
+    font-size: 1rem;
+    color: #181818;
+}
+
+.softphone-content {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.loading-indicator, .error-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.error-message {
+    color: #ba0517;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.hidden-iframe {
+    opacity: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+}
+
+.softphone-iframe {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}

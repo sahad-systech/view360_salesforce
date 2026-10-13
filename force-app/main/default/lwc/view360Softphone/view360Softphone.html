@@ -1,0 +1,30 @@
+<template>
+    <div class="softphone-container">
+        <header class="softphone-header">
+            <h2>View360 Softphone</h2>
+        </header>
+        <main class="softphone-content">
+            <template lwc:if={showSpinner}>
+                <div class="loading-indicator">
+                    <lightning-spinner alternative-text="Loading View360 Softphone" size="medium"></lightning-spinner>
+                    <p>Loading softphone...</p>
+                </div>
+            </template>
+            <template lwc:if={showError}>
+                <div class="error-message">
+                    <p>{errorMessage}</p>
+                </div>
+            </template>
+            <template lwc:if={showIframe}>
+                <iframe 
+                    src={softphoneUrl} 
+                    onload={handleIframeLoad} 
+                    onerror={handleIframeError}
+                    allow="microphone; autoplay; camera; display-capture; clipboard-read; clipboard-write"
+                    class={iframeClass}
+                    title="View360 Softphone"
+                ></iframe>
+            </template>
+        </main>
+    </div>
+</template>
