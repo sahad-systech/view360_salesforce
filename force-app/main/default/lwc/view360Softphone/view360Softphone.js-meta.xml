@@ -14,7 +14,7 @@
         <targetConfig
             targets="lightning__AppPage,lightning__HomePage,lightning__RecordPage,lightning__UtilityBar">
             <property name="softphoneUrl" type="String" label="Softphone URL"
-                default="https://syscare.systech.ae/v1/auth/login"
+                default="https://syscare.systech.ae/v1/chat-app/view/v1/auth/login"
                 description="HTTPS URL for the hosted View360 Softphone / Chat application" />
         </targetConfig>
     </targetConfigs>

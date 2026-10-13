@@ -16,7 +16,7 @@ describe('c-view360-softphone', () => {
 
         const iframe = element.shadowRoot.querySelector('iframe');
         expect(iframe).not.toBeNull();
-        expect(iframe.src).toBe('https://syscare.systech.ae/v1/auth/login');
+        expect(iframe.src).toBe('https://syscare.systech.ae/v1/chat-app/view/v1/auth/login');
         expect(iframe.title).toBe('View360 Softphone');
     });
 

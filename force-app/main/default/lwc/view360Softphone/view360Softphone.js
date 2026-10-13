@@ -1,6 +1,6 @@
 import { LightningElement, api } from 'lwc';
 
-const DEFAULT_URL = 'https://syscare.systech.ae/v1/auth/login';
+const DEFAULT_URL = 'https://syscare.systech.ae/v1/chat-app/view/v1/auth/login';
 
 export default class View360Softphone extends LightningElement {
     @api softphoneUrl = DEFAULT_URL;
