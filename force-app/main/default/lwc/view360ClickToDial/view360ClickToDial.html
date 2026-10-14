@@ -1,0 +1,104 @@
+<template>
+  <lightning-card title="View360 Call" icon-name="standard:call">
+    <div class="slds-p-around_medium">
+      <template lwc:if={isLoading}>
+        <div class="spinner-container">
+          <lightning-spinner
+            alternative-text="Loading phone numbers..."
+            size="small"
+          ></lightning-spinner>
+        </div>
+      </template>
+
+      <template lwc:elseif={errorMessage}>
+        <div
+          class="slds-notify slds-notify_alert slds-alert_error slds-m-bottom_small"
+          role="alert"
+        >
+          <span class="slds-assistive-text">error</span>
+          <h2>{errorMessage}</h2>
+        </div>
+      </template>
+
+      <template lwc:else>
+        <!-- Available Phone Numbers -->
+        <template lwc:if={hasPhoneNumbers}>
+          <p class="slds-text-title_bold slds-m-bottom_x-small">
+            Available Numbers:
+          </p>
+          <ul class="slds-has-dividers_around-space slds-m-bottom_medium">
+            <template for:each={phoneList} for:item="phoneItem">
+              <li key={phoneItem.label} class="slds-item phone-row">
+                <div
+                  class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center"
+                >
+                  <div class="phone-info">
+                    <span class="slds-badge slds-m-right_x-small"
+                      >{phoneItem.label}</span
+                    >
+                    <span class="phone-number">{phoneItem.value}</span>
+                  </div>
+                  <lightning-button
+                    variant="brand"
+                    label="Call"
+                    icon-name="utility:call"
+                    data-phone={phoneItem.value}
+                    onclick={handleCallClick}
+                    class="call-btn"
+                  ></lightning-button>
+                </div>
+              </li>
+            </template>
+          </ul>
+        </template>
+
+        <template lwc:else>
+          <p class="slds-text-color_weak slds-m-bottom_medium">
+            No phone numbers found on this record.
+          </p>
+        </template>
+
+        <!-- Custom Number Dial -->
+        <div class="custom-dial-section slds-m-top_small">
+          <lightning-input
+            type="tel"
+            label="Dial Custom Number"
+            placeholder="e.g. +1 (555) 000-1122"
+            value={customNumber}
+            onchange={handleCustomNumberChange}
+          ></lightning-input>
+          <div class="slds-m-top_x-small slds-grid slds-grid_align-end">
+            <lightning-button
+              variant="neutral"
+              label="Dial Number"
+              icon-name="utility:outgoing_call"
+              onclick={handleCustomCall}
+              disabled={isCustomCallDisabled}
+            ></lightning-button>
+          </div>
+        </div>
+
+        <!-- Last Dialed Info -->
+        <template lwc:if={lastDialedStatus}>
+          <div
+            class="slds-m-top_small slds-scoped-notification slds-scoped-notification_light"
+            role="status"
+          >
+            <div class="slds-media">
+              <div class="slds-media__figure">
+                <lightning-icon
+                  icon-name="utility:success"
+                  size="x-small"
+                  variant="success"
+                ></lightning-icon>
+              </div>
+              <div class="slds-media__body">
+                <p>{lastDialedStatus}</p>
+              </div>
+            </div>
+          </div>
+        </template>
+      </template>
+    </div>
+  </lightning-card>
+</template>

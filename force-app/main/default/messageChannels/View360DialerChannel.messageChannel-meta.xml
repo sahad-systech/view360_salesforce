@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>View360DialerChannel</masterLabel>
+    <isExposed>true</isExposed>
+    <description
+  >Message channel used for Click-to-Dial communication between Salesforce records and the View360 Softphone.</description>
+    <lightningMessageFields>
+        <fieldName>phoneNumber</fieldName>
+        <description>The target phone number to dial.</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>recordId</fieldName>
+        <description>Salesforce record Id of the Contact or Lead.</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>recordName</fieldName>
+        <description>Name of the Contact or Lead being called.</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>objectApiName</fieldName>
+        <description
+    >Salesforce object API name (e.g. Contact, Lead).</description>
+    </lightningMessageFields>
+</LightningMessageChannel>

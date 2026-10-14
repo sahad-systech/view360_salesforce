@@ -1,30 +1,164 @@
 <template>
-    <div class="softphone-container">
-        <header class="softphone-header">
-            <h2>View360 Softphone</h2>
-        </header>
-        <main class="softphone-content">
-            <template lwc:if={showSpinner}>
-                <div class="loading-indicator">
-                    <lightning-spinner alternative-text="Loading View360 Softphone" size="medium"></lightning-spinner>
-                    <p>Loading softphone...</p>
-                </div>
-            </template>
-            <template lwc:if={showError}>
-                <div class="error-message">
-                    <p>{errorMessage}</p>
-                </div>
-            </template>
-            <template lwc:if={showIframe}>
-                <iframe 
-                    src={softphoneUrl} 
-                    onload={handleIframeLoad} 
-                    onerror={handleIframeError}
-                    allow="microphone; autoplay; camera; display-capture; clipboard-read; clipboard-write"
-                    class={iframeClass}
-                    title="View360 Softphone"
-                ></iframe>
-            </template>
-        </main>
-    </div>
+  <div class="softphone-container">
+    <!-- Softphone Header -->
+    <header class="softphone-header">
+      <div class="header-content">
+        <lightning-icon
+          icon-name="standard:call"
+          size="small"
+          class="header-icon"
+        ></lightning-icon>
+        <h2>View360 Softphone</h2>
+      </div>
+      <template lwc:if={isCallActive}>
+        <div class="active-call-pill">
+          <span class="pulsing-dot"></span>
+          <span>{callDurationDisplay}</span>
+        </div>
+      </template>
+    </header>
+
+    <!-- Active Call / Incoming Call Banner -->
+    <template lwc:if={showCallBanner}>
+      <div class={callBannerClass}>
+        <div class="call-banner-header">
+          <span class="call-type-badge">{callStatusBadgeText}</span>
+          <span class="call-timer">{callDurationDisplay}</span>
+        </div>
+        <div class="call-banner-body">
+          <p class="caller-name">{displayCallerName}</p>
+          <p class="caller-phone">{displayCallerPhone}</p>
+        </div>
+        <div class="call-banner-actions">
+          <lightning-button-group>
+            <lightning-button
+              label="CRM Search"
+              icon-name="utility:search"
+              onclick={handleManualScreenPop}
+            ></lightning-button>
+            <lightning-button-menu
+              alternative-text="Create Record"
+              menu-alignment="right"
+              onselect={handleCreateRecordSelect}
+            >
+              <lightning-menu-item
+                value="Contact"
+                label="New Contact"
+              ></lightning-menu-item>
+              <lightning-menu-item
+                value="Lead"
+                label="New Lead"
+              ></lightning-menu-item>
+            </lightning-button-menu>
+          </lightning-button-group>
+        </div>
+      </div>
+    </template>
+
+    <!-- Call Log / Wrap-up Drawer -->
+    <template lwc:if={showLogDrawer}>
+      <div class="log-drawer">
+        <div class="log-drawer-header">
+          <h3>Log Call Activity</h3>
+          <lightning-button-icon
+            icon-name="utility:close"
+            variant="bare"
+            alternative-text="Dismiss"
+            onclick={handleDismissLogDrawer}
+          ></lightning-button-icon>
+        </div>
+        <div class="log-drawer-body">
+          <div class="log-summary">
+            <span
+              ><strong>{lastCallSummary.direction} Call:</strong>
+              {lastCallSummary.phone}</span
+            >
+            <span
+              ><strong>Duration:</strong>
+              {lastCallSummary.durationFormatted}</span
+            >
+          </div>
+
+          <lightning-combobox
+            name="disposition"
+            label="Call Outcome"
+            value={logDisposition}
+            options={dispositionOptions}
+            onchange={handleDispositionChange}
+            class="slds-m-bottom_x-small"
+          ></lightning-combobox>
+
+          <lightning-textarea
+            name="notes"
+            label="Call Notes"
+            placeholder="Enter conversation notes or outcome..."
+            value={logNotes}
+            onchange={handleNotesChange}
+            class="slds-m-bottom_x-small"
+          ></lightning-textarea>
+
+          <template lwc:if={logErrorMessage}>
+            <div class="log-error">{logErrorMessage}</div>
+          </template>
+
+          <div class="log-actions slds-grid slds-grid_align-spread">
+            <lightning-button
+              label="Discard"
+              variant="neutral"
+              onclick={handleDismissLogDrawer}
+              disabled={isLogging}
+            ></lightning-button>
+            <lightning-button
+              label={saveButtonLabel}
+              variant="brand"
+              icon-name="utility:save"
+              onclick={handleSaveCallLog}
+              disabled={isLogging}
+            ></lightning-button>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- Main Content Area -->
+    <main class="softphone-content">
+      <template lwc:if={showSpinner}>
+        <div class="loading-indicator">
+          <lightning-spinner
+            alternative-text="Loading View360 Softphone"
+            size="medium"
+          ></lightning-spinner>
+          <p>Loading View360 Softphone...</p>
+        </div>
+      </template>
+      <template lwc:if={showError}>
+        <div class="error-message">
+          <lightning-icon
+            icon-name="utility:error"
+            variant="error"
+            size="medium"
+            class="slds-m-bottom_small"
+          ></lightning-icon>
+          <p>{errorMessage}</p>
+        </div>
+      </template>
+      <template lwc:if={showIframe}>
+        <iframe
+          src={softphoneUrl}
+          onload={handleIframeLoad}
+          onerror={handleIframeError}
+          allow="
+            microphone;
+            autoplay;
+            camera;
+            display-capture;
+            clipboard-read;
+            clipboard-write;
+          "
+          class={iframeClass}
+          title="View360 Softphone"
+        ></iframe>
+      </template>
+    </main>
+  </div>
 </template>

@@ -1,76 +1,235 @@
 :host {
-    display: block;
-    width: 100%;
-    height: 100%;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .softphone-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    background: #ffffff;
-    box-sizing: border-box;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: #ffffff;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
 
 .softphone-header {
-    padding: 10px 16px;
-    background-color: #f3f3f3;
-    border-bottom: 1px solid #d8dde6;
-    font-weight: 600;
-    text-align: center;
-    flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #0b5cab;
+  color: #ffffff;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .softphone-header h2 {
-    margin: 0;
-    font-size: 1rem;
-    color: #181818;
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.active-call-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.pulsing-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #2e844a;
+  border-radius: 50%;
+  box-shadow: 0 0 0 rgba(46, 132, 74, 0.4);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(46, 132, 74, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(46, 132, 74, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(46, 132, 74, 0);
+  }
+}
+
+/* Call Banner */
+.call-banner-incoming,
+.call-banner-connected {
+  position: absolute;
+  top: 42px;
+  left: 8px;
+  right: 8px;
+  z-index: 20;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 10px 14px;
+  color: #ffffff;
+  animation: slideDown 0.25s ease-out;
+}
+
+.call-banner-incoming {
+  background: linear-gradient(135deg, #1b63c2, #0d3c75);
+}
+
+.call-banner-connected {
+  background: linear-gradient(135deg, #2e844a, #1a4f2c);
+}
+
+.call-banner-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+.call-banner-body {
+  margin-bottom: 8px;
+}
+
+.caller-name {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.caller-phone {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.call-banner-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Log Drawer */
+.log-drawer {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: #ffffff;
+  border-bottom: 2px solid #0b5cab;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  padding: 12px 16px;
+  max-height: 80%;
+  overflow-y: auto;
+  animation: slideDown 0.25s ease-out;
+}
+
+.log-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 4px;
+}
+
+.log-drawer-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #181818;
+  margin: 0;
+}
+
+.log-summary {
+  display: flex;
+  justify-content: space-between;
+  background: #f3f3f3;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.log-error {
+  color: #ba0517;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .softphone-content {
-    flex: 1;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    min-height: 0;
-    overflow: hidden;
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
 }
 
-.loading-indicator, .error-message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 100%;
-    padding: 24px;
-    box-sizing: border-box;
+.loading-indicator,
+.error-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
 .error-message {
-    color: #ba0517;
-    font-size: 0.9rem;
-    line-height: 1.4;
+  color: #ba0517;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 .hidden-iframe {
-    opacity: 0;
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    pointer-events: none;
+  opacity: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
 }
 
 .softphone-iframe {
-    flex: 1;
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
 }

@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+.spinner-container {
+  position: relative;
+  height: 80px;
+}
+
+.phone-row {
+  background-color: #fafaf9;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.phone-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  word-break: break-all;
+}
+
+.phone-number {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #181818;
+}
+
+.custom-dial-section {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 12px;
+}
